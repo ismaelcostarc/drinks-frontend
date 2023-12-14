@@ -15,7 +15,7 @@ export default <RouterConfig> {
     },
     {
       name: 'drinks',
-      path: '/drinks',
+      path: '/drinks/:drink',
       component: () => import('~/pages/drinks/Drinks.vue').then(r => r.default || r)
     },
   ],
