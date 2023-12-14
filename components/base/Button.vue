@@ -19,7 +19,7 @@ const props = withDefaults(defineProps<Props>(), {
 <style scoped>
 .button {
   cursor: pointer;
-  border-radius: var(--spacing-medium);
+  border-radius: var(--spacing-md);
 }
 
 .default { 
@@ -54,22 +54,22 @@ const props = withDefaults(defineProps<Props>(), {
 }
 
 .small {
-  padding: var(--spacing-small);
-  font-size: var(--font-size-small);
-  padding-left: var(--spacing-large);
-  padding-right: var(--spacing-large);
+  padding: var(--spacing-sm);
+  font-size: var(--font-size-sm);
+  padding-left: var(--spacing-lg);
+  padding-right: var(--spacing-lg);
 }
 
 .medium {
-  padding: var(--spacing-medium);
-  font-size: var(--font-size-medium);
+  padding: var(--spacing-md);
+  font-size: var(--font-size-md);
   padding-left: var(--spacing-xl);
   padding-right: var(--spacing-xl);
 }
 
 .large {
-  padding: var(--spacing-large);
-  font-size: var(--font-size-large);
+  padding: var(--spacing-lg);
+  font-size: var(--font-size-lg);
   padding-left: var(--spacing-xxl);
   padding-right: var(--spacing-xxl);
 }

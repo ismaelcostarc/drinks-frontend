@@ -25,9 +25,9 @@ const props = withDefaults(defineProps<Props>(), {
 
 <style scoped>
 .card {
-  border: var(--spacing-small) var(--color-border) solid;
-  border-radius: var(--spacing-medium);
-  padding: var(--spacing-large);
+  border: var(--spacing-sm) var(--color-border) solid;
+  border-radius: var(--spacing-md);
+  padding: var(--spacing-lg);
   display: flex;
   flex-direction: column;
   align-items: center;
