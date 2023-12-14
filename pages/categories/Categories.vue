@@ -4,10 +4,38 @@ import { useLayoutsDefaultStore } from '@/store/layouts/default.store'
 const store = useLayoutsDefaultStore()
 
 store.title = 'Categorias'
+
+const headers = [
+  'Categoria',
+  'Descrição',
+]
+
+const data = [
+  [
+    {
+      content: 'Destilados',
+      link: '/drinks/destilados',
+    },
+    {
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend at mi eu placerat. In ac velit vitae augue rutrum porta. Phasellus porta velit orci, iaculis ullamcorper nisl porta in.',
+    }
+  ],
+  [
+    {
+      content: 'Vinhos',
+      link: '/drinks/vinhos',
+    },
+    {
+      content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eleifend at mi eu placerat. In ac velit vitae augue rutrum porta. Phasellus porta velit orci, iaculis ullamcorper nisl porta in.',
+    }
+  ],
+]
 </script>
 
 <template>
-  <NuxtLayout>Categories</NuxtLayout>
+  <NuxtLayout>
+    <BaseTable :headers="headers" :data="data"/>
+  </NuxtLayout>
 </template>
 
 <style>
