@@ -1,0 +1,15 @@
+:root {
+  /* Espaçamentos para padding em rem */
+  --padding-small: 0.25rem; /* 4px */
+  --padding-medium: 0.5rem; /* 8px */
+  --padding-large: 1rem; /* 16px */
+  --padding-xl: 1.5rem; /* 24px */
+  --padding-xxl: 2rem; /* 32px */
+
+  /* Espaçamentos para margin em rem */
+  --margin-small: 0.25rem; /* 4px */
+  --margin-medium: 0.5rem; /* 8px */
+  --margin-large: 1rem; /* 16px */
+  --margin-xl: 1.5rem; /* 24px */
+  --margin-xxl: 2rem; /* 32px */
+}

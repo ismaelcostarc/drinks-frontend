@@ -1,0 +1,22 @@
+:root {
+  /* Tamanhos de texto em rem */
+  --font-size-small: 0.75rem; /* 12px */
+  --font-size-medium: 1rem; /* 16px */
+  --font-size-large: 1.25rem; /* 20px */
+  --font-size-xl: 1.5rem; /* 24px */
+  --font-size-xxl: 2rem; /* 32px */
+
+  /* Espaçamentos em rem */
+  --spacing-small: 0.25rem; /* 4px */
+  --spacing-medium: 0.5rem; /* 8px */
+  --spacing-large: 1rem; /* 16px */
+  --spacing-xl: 1.5rem; /* 24px */
+  --spacing-xxl: 2rem; /* 32px */
+
+  /* Alturas de linha */
+  --line-height-small: 1.2;
+  --line-height-medium: 1.4;
+  --line-height-large: 1.6;
+  --line-height-xl: 1.8;
+  --line-height-xxl: 2.0;
+}
