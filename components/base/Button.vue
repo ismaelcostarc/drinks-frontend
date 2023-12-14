@@ -11,13 +11,13 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <button class="button" :class="[size, type]">
+  <button class="base-button" :class="[size, type]">
     <slot />
   </button>
 </template>
 
 <style scoped>
-.button {
+.base-button {
   cursor: pointer;
   border-radius: var(--spacing-md);
 }

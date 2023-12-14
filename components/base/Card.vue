@@ -10,7 +10,7 @@ const props = withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <div class="card" :class="size">
+  <div class="base-card" :class="size">
     <header>
       <slot name="header"></slot>
     </header>
@@ -24,8 +24,7 @@ const props = withDefaults(defineProps<Props>(), {
 </template>
 
 <style scoped>
-.card {
-  border: var(--spacing-sm) var(--color-border) solid;
+.base-card {
   border-radius: var(--spacing-md);
   padding: var(--spacing-lg);
   display: flex;
