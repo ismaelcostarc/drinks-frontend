@@ -31,7 +31,10 @@ const props = withDefaults(defineProps<Props>(), {
   flex-direction: column;
   align-items: center;
   gap: var(--spacing-xxl);
-  background-color: var(--color-white)
+  background-color: var(--color-white);
+  -webkit-box-shadow: 6px 10px 69px -10px rgba(0, 0, 0, 0.43);
+  -moz-box-shadow: 6px 10px 69px -10px rgba(0, 0, 0, 0.43);
+  box-shadow: 6px 10px 69px -10px rgba(0, 0, 0, 0.43);
 }
 
 .small {
