@@ -37,15 +37,15 @@ const props = withDefaults(defineProps<Props>(), {
 }
 
 .small {
-  max-width: 15rem;
+  width: 15rem;
 }
 
 .medium {
-  max-width: 20rem;
+  width: 20rem;
 }
 
 .large {
-  max-width: 25rem;
+  width: 30rem;
 }
 
 .full { 
