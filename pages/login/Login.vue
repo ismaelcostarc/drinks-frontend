@@ -1,21 +1,23 @@
 <template>
-  <div class="base-card__container">
-    <BaseCard size="large">
-      <template #header>logotipo</template>
-      <template #default>
-        <BaseForm>
-          <BaseInputText label="E-mail:"/>
-          <BaseInputText label="Senha:"/>
-        </BaseForm>
-      </template>
-      <template #footer>
-        <div class="buttons__container">
-          <BaseButton>Entrar</BaseButton>
-          <BaseButton type="link" size="small">Cadastre-se</BaseButton>
-        </div>
-      </template>
-    </BaseCard>
-  </div>
+  <NuxtLayout name="empty">
+    <div class="base-card__container">
+      <BaseCard size="large">
+        <template #header>logotipo</template>
+        <template #default>
+          <BaseForm>
+            <BaseInputText label="E-mail:" />
+            <BaseInputText label="Senha:" />
+          </BaseForm>
+        </template>
+        <template #footer>
+          <div class="buttons__container">
+            <BaseButton>Entrar</BaseButton>
+            <BaseButton type="link" size="small">Cadastre-se</BaseButton>
+          </div>
+        </template>
+      </BaseCard>
+    </div>
+  </NuxtLayout>
 </template>
 
 <style scoped>
@@ -28,7 +30,7 @@
   background-color: var(--color-primary);
 }
 
-.base-card__container > * {
+.base-card__container>* {
   margin: 0 auto;
 }
 
