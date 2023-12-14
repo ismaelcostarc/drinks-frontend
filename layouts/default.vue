@@ -7,8 +7,10 @@ const store = useLayoutsDefaultStore()
 <template>
   <div class="container">
     <BaseCard size="full">
-      <BaseTitle>{{ store.title }}</BaseTitle>
-      <BaseSearch />
+      <div class="header">
+        <BaseTitle>{{ store.title }}</BaseTitle>
+        <BaseInputText placeholder="Pesquisar" v-model="store.search" />
+      </div>
     </BaseCard>
 
     <BaseCard size="full">
@@ -23,5 +25,12 @@ const store = useLayoutsDefaultStore()
   flex-direction: column;
   gap: var(--spacing-lg);
   padding: var(--spacing-lg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 var(--spacing-lg);
 }
 </style>
