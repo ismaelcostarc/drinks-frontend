@@ -1,23 +1,22 @@
 <script setup lang="ts">
 interface Props {
-  size?: 'small' | 'medium' | 'large';
+  size?: 'small' | 'medium' | 'large' | 'full';
 }
 
 const props = withDefaults(defineProps<Props>(), {
   size: 'medium',
 })
-
 </script>
 
 <template>
   <div class="base-card" :class="size">
-    <header>
+    <header class="full-width">
       <slot name="header"></slot>
     </header>
-    <main>
+    <main class="full-width">
       <slot></slot>
     </main>
-    <footer>
+    <footer class="full-width">
       <slot name="footer"></slot>
     </footer>
   </div>
@@ -26,7 +25,7 @@ const props = withDefaults(defineProps<Props>(), {
 <style scoped>
 .base-card {
   border-radius: var(--spacing-md);
-  padding: var(--spacing-lg);
+  padding: var(--spacing-md);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -38,14 +37,22 @@ const props = withDefaults(defineProps<Props>(), {
 }
 
 .small {
-  width: 15rem;
+  max-width: 15rem;
 }
 
 .medium {
-  width: 20rem;
+  max-width: 20rem;
 }
 
 .large {
-  width: 25rem;
+  max-width: 25rem;
+}
+
+.full { 
+  max-width: 100%;
+}
+
+.full-width {
+  width: 100%;
 }
 </style>
