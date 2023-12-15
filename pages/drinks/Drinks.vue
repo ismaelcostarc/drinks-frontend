@@ -3,6 +3,8 @@ import { useLayoutsDefaultStore } from '@/store/layouts/default.store'
 
 const store = useLayoutsDefaultStore()
 
+store.backLink = '/'
+
 const route = useRoute()
 
 store.title = 'Bebidas / ' + route.params.drink

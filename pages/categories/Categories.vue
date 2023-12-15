@@ -4,6 +4,7 @@ import { useLayoutsDefaultStore } from '@/store/layouts/default.store'
 const store = useLayoutsDefaultStore()
 
 store.title = 'Categorias'
+store.backLink = ''
 
 const headers = [
   'Categoria',
