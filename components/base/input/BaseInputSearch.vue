@@ -15,7 +15,7 @@ const input = ref('')
   <BaseForm @submit.prevent="emit('search', input)">
     <div class="base-input-search__container">
       <input type="text" class="base-input-search" :placeholder="props.placeholder" v-model="input" />
-      <button class="base-input-search__button" type="submit">
+      <button class="base-input-search__button" type="submit" :disabled="!input">
         <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
       </button>
     </div>
@@ -43,5 +43,10 @@ const input = ref('')
   padding: 0 var(--spacing-lg) 0 var(--spacing-lg);
   border-radius: 0 var(--spacing-md) var(--spacing-md) 0;
   cursor: pointer;
+}
+
+.base-input-search__button:disabled {
+  filter: brightness(80%);
+  cursor: not-allowed;
 }
 </style>

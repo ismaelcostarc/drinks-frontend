@@ -2,16 +2,18 @@
 interface Props {
   size?: 'small' | 'medium' | 'large';
   type?: 'default' | 'outlined' | 'warning' | 'success' | 'error' | 'link';
+  disabled?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   size: 'medium',
   type: 'default',
+  disabled: false,
 })
 </script>
 
 <template>
-  <button class="base-button" :class="[size, type]">
+  <button class="base-button" :class="[size, type]" :disabled="props.disabled">
     <slot />
   </button>
 </template>
@@ -20,6 +22,11 @@ const props = withDefaults(defineProps<Props>(), {
 .base-button {
   cursor: pointer;
   border-radius: var(--spacing-md);
+}
+
+.base-button:disabled {
+  filter: brightness(80%);
+  cursor: not-allowed;
 }
 
 .default { 
