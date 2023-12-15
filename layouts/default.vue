@@ -2,14 +2,31 @@
 import { useLayoutsDefaultStore } from '@/store/layouts/default.store'
 
 const store = useLayoutsDefaultStore()
+
+const search = (payload: string) => {
+  console.log(payload)
+}
 </script>
 
 <template>
   <div class="container">
     <BaseCard size="full">
       <div class="header">
-        <BaseTitle>{{ store.title }}</BaseTitle>
-        <BaseInputText placeholder="Pesquisar" v-model="store.search" />
+        <div class="title">
+          <NuxtLink v-if="store.backLink" :to="store.backLink">
+            <BaseButton type="link">
+              <font-awesome-icon :icon="['fas', 'chevron-left']" />
+            </BaseButton>
+          </NuxtLink>
+          <BaseTitle>{{ store.title }}</BaseTitle>
+        </div>
+
+        <div class="buttons">
+          <BaseInputSearch placeholder="Pesquisar" @search="search" />
+          <NuxtLink to="/login">
+            <BaseButton type="link">Sair</BaseButton>
+          </NuxtLink>
+        </div>
       </div>
     </BaseCard>
 
@@ -32,5 +49,17 @@ const store = useLayoutsDefaultStore()
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--spacing-lg);
+}
+
+.buttons {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm)
 }
 </style>
