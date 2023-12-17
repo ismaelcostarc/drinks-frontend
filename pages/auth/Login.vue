@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { authLogin } from '~/services/auth/auth-login.service';
+import { login } from '~/services/auth.service';
 import { useAuthStore } from '~/store/auth.store';
-
 import { useToast } from 'vue-toastification'
+
 const toast = useToast()
 
 const email = ref('');
@@ -10,8 +10,8 @@ const password = ref('');
 
 const isDisabled = computed(() => !email.value || !password.value)
 
-const login = async () => {
-  const response = await authLogin({
+const signIn = async () => {
+  const response = await login({
     email: email.value,
     password: password.value,
   })
@@ -43,7 +43,7 @@ const login = async () => {
         </template>
         <template #footer>
           <div class="buttons__container">
-            <BaseButton :disabled="isDisabled" @click="login">Entrar</BaseButton>
+            <BaseButton :disabled="isDisabled" @click="signIn">Entrar</BaseButton>
             <BaseButton type="link" size="small">Cadastre-se</BaseButton>
           </div>
         </template>

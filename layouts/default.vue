@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useLayoutsDefaultStore } from '@/store/layouts/default.store'
+import { useLayoutStore } from '@/store/layout.store'
 
-const store = useLayoutsDefaultStore()
+const store = useLayoutStore()
 
 const search = (payload: string) => {
   console.log(payload)

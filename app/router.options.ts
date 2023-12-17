@@ -6,17 +6,17 @@ export default <RouterConfig> {
     {
       name: 'login',
       path: '/login',
-      component: () => import('~/pages/auth/login/Login.vue').then(r => r.default || r)
+      component: () => import('~/pages/auth/Login.vue').then(r => r.default || r)
     },
     {
       name: 'categories',
       path: '/',
-      component: () => import('~/pages/categories/Categories.vue').then(r => r.default || r)
+      component: () => import('~/pages/Categories.vue').then(r => r.default || r)
     },
     {
       name: 'drinks',
-      path: '/drinks/:drink',
-      component: () => import('~/pages/drinks/Drinks.vue').then(r => r.default || r)
+      path: '/drinks/:categoryId',
+      component: () => import('~/pages/Drinks.vue').then(r => r.default || r)
     },
   ],
 }

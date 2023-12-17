@@ -1,12 +1,9 @@
 <script setup lang="ts">
-interface TableData {
-  content: string;
-  link?: string;
-}
+import type { TableRow } from './base-table.types';
 
 interface Props {
   headers?: string[];
-  data?: TableData[][];
+  data?: TableRow[];
 }
 
 const props = defineProps<Props>()
