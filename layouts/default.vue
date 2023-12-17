@@ -24,12 +24,11 @@ if (authStore.getAuthToken()) {
     immediate: true
   })
 }
-
 pending.value = false
 
 const logout = () => {
   authStore.logout()
-  router.push({ name: 'Login' })
+  router.go(0)
 }
 
 const redirectToLogin = () => {
