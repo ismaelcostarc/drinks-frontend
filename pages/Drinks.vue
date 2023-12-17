@@ -15,11 +15,12 @@ const category = await getCategory(
   `${route.params.categoryId}`
 )
 
-if (category.error.value) {
-  store.title = 'Bebidas'
-} else {
-  store.title = category.data.value?.name ?? 'Bebidas'
-}
+watch(() => category.data.value, value => {
+  store.title = value ? value.name : 'Bebidas'
+}, {
+  immediate: true
+})
+
 store.backLink = '/'
 
 const headers = [
@@ -31,12 +32,8 @@ const response = await getDrinksByCategory(
   `${route.params.categoryId}`
 )
 
-if (response.error.value) {
-  if (response.error.value.statusCode === 500) {
-    toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-  }
-} else {
-  drinks.value = response.data.value?.map(category => {
+watch(() => response.data.value, value => {
+  drinks.value = value?.map(category => {
     return [
       {
         content: category.name,
@@ -47,7 +44,12 @@ if (response.error.value) {
       }
     ]
   }) ?? []
+})
+
+if (response.error.value?.statusCode === 500) {
+  toast.error("O servidor está fora do ar, tente novamente mais tarde.")
 }
+
 </script>
 
 <template>
