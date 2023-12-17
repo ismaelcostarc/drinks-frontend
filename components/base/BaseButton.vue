@@ -30,7 +30,7 @@ const emits = defineEmits(['click'])
 }
 
 .base-button:disabled {
-  filter: brightness(80%);
+  filter: grayscale(0.5);
   cursor: not-allowed;
 }
 
