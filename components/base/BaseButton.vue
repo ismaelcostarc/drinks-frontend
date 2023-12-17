@@ -3,19 +3,21 @@ interface Props {
   size?: 'small' | 'medium' | 'large';
   type?: 'default' | 'outlined' | 'warning' | 'success' | 'error' | 'link';
   disabled?: boolean;
+  full?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
   size: 'medium',
   type: 'default',
   disabled: false,
+  full: false,
 })
 
 const emits = defineEmits(['click'])
 </script>
 
 <template>
-  <button class="base-button" :class="[size, type]" :disabled="props.disabled" @click.stop="emits('click')">
+  <button class="base-button" :class="`${size} ${type} ${full && 'full'}`" :disabled="props.disabled" @click.stop="emits('click')">
     <slot />
   </button>
 </template>
@@ -24,6 +26,7 @@ const emits = defineEmits(['click'])
 .base-button {
   cursor: pointer;
   border-radius: var(--spacing-md);
+  text-align: center;
 }
 
 .base-button:disabled {
@@ -81,5 +84,9 @@ const emits = defineEmits(['click'])
   font-size: var(--font-size-lg);
   padding-left: var(--spacing-xxl);
   padding-right: var(--spacing-xxl);
+}
+
+.full {
+  width: 100%;
 }
 </style>

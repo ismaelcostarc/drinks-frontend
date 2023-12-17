@@ -21,6 +21,10 @@ const props = defineProps<Props>()
           {{ data.content }}
         </NuxtLink>
 
+        <BaseButton v-else-if="data.callback" @click="() => data.callback && data.callback(data.id)" type="link">
+          {{ data.content }}
+        </BaseButton>
+
         <div v-else>
           {{ data.content }}
         </div>

@@ -7,3 +7,7 @@ export const getDrinksByCategory = (categoryId: string ) => {
 export const searchDrinks = (search: string ) => {
   return useCustomFetch<Drink[]>(`/drinks?search=${search}`, { method: "GET" })
 }
+
+export const getDrink = (id: string ) => {
+  return useCustomFetch<Drink>(`/drinks/${id}`, { method: "GET" })
+}
