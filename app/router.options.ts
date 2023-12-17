@@ -18,5 +18,10 @@ export default <RouterConfig> {
       path: '/drinks/:categoryId',
       component: () => import('~/pages/Drinks.vue').then(r => r.default || r)
     },
+    {
+      name: 'DrinksSearch',
+      path: '/drinks/search/:search',
+      component: () => import('~/pages/DrinksSearch.vue').then(r => r.default || r)
+    },
   ],
 }

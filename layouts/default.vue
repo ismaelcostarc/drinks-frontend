@@ -7,13 +7,8 @@ const layoutStore = useLayoutStore()
 const authStore = useAuthStore()
 const router = useRouter()
 
-const search = (payload: string) => {
-  console.log(payload)
-}
-
 const pending = ref(true)
 const logged = ref(false)
-
 if (authStore.getAuthToken()) {
   const user = await authStore.getUser()
   watch(() => user.status.value, value => {
@@ -25,6 +20,10 @@ if (authStore.getAuthToken()) {
   })
 }
 pending.value = false
+
+const searchDrink = (payload: string) => {
+  router.push(`/drinks/search/${payload}`)
+}
 
 const logout = () => {
   authStore.logout()
@@ -50,7 +49,7 @@ const redirectToLogin = () => {
         </div>
 
         <div class="buttons">
-          <BaseInputSearch placeholder="Pesquisar" @search="search" />
+          <BaseInputSearch placeholder="Pesquisar" @search="searchDrink" />
           <template v-if="!pending">
             <BaseButton type="link" v-if="logged" @click="logout">Sair</BaseButton>
             <BaseButton v-else @click="redirectToLogin">Entrar</BaseButton>
