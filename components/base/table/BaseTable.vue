@@ -12,11 +12,11 @@ const props = defineProps<Props>()
 <template>
   <table class="base-table">
     <tr class="base-table-header">
-      <th v-for="header in props.headers">{{ header }}</th>
+      <th v-for="header in props.headers" :key="header">{{ header }}</th>
     </tr>
 
-    <tr v-for="row in props.data">
-      <td v-for="data in row">
+    <tr v-for="row in props.data" :key="'row' + row[0].id">
+      <td v-for="data in row" :key="data.id">
         <NuxtLink v-if="data.link" :to="data.link" class="base-table-data--link">
           {{ data.content }}
         </NuxtLink>
