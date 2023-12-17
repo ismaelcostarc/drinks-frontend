@@ -2,25 +2,34 @@
 import { useLayoutStore } from '@/store/layout.store'
 import { useToast } from 'vue-toastification'
 import type { TableRow } from '~/components/base/table/base-table.types';
+import { getCategory } from '~/services/categories.service';
 import { getDrinksByCategory } from '~/services/drinks.service';
 
-const toast = useToast()
-
-const store = useLayoutStore()
-store.backLink = '/'
-const route = useRoute()
-store.title = 'Bebidas / ' + route.params.categoryId
-
 const drinks = ref<TableRow[]>([])
+
+const route = useRoute()
+const toast = useToast()
+const store = useLayoutStore()
+
+const category = await getCategory(
+  `${route.params.categoryId}`
+)
+
+if (category.error.value) {
+  store.title = 'Bebidas'
+} else {
+  store.title = category.data.value?.name ?? 'Bebidas'
+}
+store.backLink = '/'
 
 const headers = [
   'Bebida',
   'Descrição',
 ]
 
-const response = await getDrinksByCategory({
-  categoryId: `${route.params.categoryId}`
-})
+const response = await getDrinksByCategory(
+  `${route.params.categoryId}`
+)
 
 if (response.error.value) {
   if (response.error.value.statusCode === 500) {
