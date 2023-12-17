@@ -6,8 +6,6 @@ import { getCategory } from '~/services/categories.service';
 import { getDrinksByCategory } from '~/services/drinks.service';
 import DrinksModal from './components/DrinksModal.vue'
 
-const drinks = ref<TableRow[]>([])
-
 const route = useRoute()
 const toast = useToast()
 const store = useLayoutStore()
@@ -33,8 +31,8 @@ const response = await getDrinksByCategory(
   `${route.params.categoryId}`
 )
 
-watch(() => response.data.value, value => {
-  drinks.value = value?.map(category => {
+const drinks = computed(() => {
+  const data: TableRow[] = response.data.value?.map(category => {
     return [
       {
         id: category.id,
@@ -49,6 +47,8 @@ watch(() => response.data.value, value => {
       }
     ]
   }) ?? []
+
+  return data
 })
 
 if (response.error.value?.statusCode === 500) {

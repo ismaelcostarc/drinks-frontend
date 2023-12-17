@@ -10,8 +10,6 @@ const store = useLayoutStore()
 store.title = 'Categorias'
 store.backLink = ''
 
-const categories = ref<TableRow[]>([])
-
 const headers = [
   'Categoria',
   'Descrição',
@@ -19,12 +17,12 @@ const headers = [
 
 const response = await getCategories()
 
-if (response.error.value) {
-  if (response.error.value.statusCode === 500) {
-    toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-  }
-} else {
-  categories.value = response.data.value?.map(category => {
+if (response.error.value?.statusCode === 500) {
+  toast.error("O servidor está fora do ar, tente novamente mais tarde.")
+}
+
+const categories = computed(() => {
+  const data: TableRow[] = response.data.value?.map(category => {
     return [
       {
         content: category.name,
@@ -35,7 +33,9 @@ if (response.error.value) {
       }
     ]
   }) ?? []
-}
+
+  return data
+})
 </script>
 
 <template>
