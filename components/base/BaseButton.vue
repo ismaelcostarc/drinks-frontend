@@ -10,10 +10,12 @@ const props = withDefaults(defineProps<Props>(), {
   type: 'default',
   disabled: false,
 })
+
+const emits = defineEmits(['click'])
 </script>
 
 <template>
-  <button class="base-button" :class="[size, type]" :disabled="props.disabled">
+  <button class="base-button" :class="[size, type]" :disabled="props.disabled" @click.stop="emits('click')">
     <slot />
   </button>
 </template>
