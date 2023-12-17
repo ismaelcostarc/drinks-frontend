@@ -6,7 +6,7 @@ export default <RouterConfig> {
     {
       name: 'login',
       path: '/login',
-      component: () => import('~/pages/login/Login.vue').then(r => r.default || r)
+      component: () => import('~/pages/auth/login/Login.vue').then(r => r.default || r)
     },
     {
       name: 'categories',
