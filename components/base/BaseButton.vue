@@ -31,33 +31,33 @@ const emits = defineEmits(['click'])
   cursor: not-allowed;
 }
 
-.default { 
+.default {
   background-color: var(--color-primary);
   color: var(--color-white);
 }
 
-.outlined { 
+.outlined {
   background-color: var(--color-transparent);
   border: var(--spacing-xsm) var(--color-black) solid;
   color: var(--color-black);
 }
 
-.warning { 
+.warning {
   background-color: var(--color-warning);
   color: var(--color-white);
 }
 
-.success { 
+.success {
   background-color: var(--color-success);
   color: var(--color-white);
 }
 
-.error { 
+.error {
   background-color: var(--color-error);
   color: var(--color-white);
 }
 
-.link { 
+.link {
   background-color: var(--color-transparent);
   color: var(--color-link);
 }

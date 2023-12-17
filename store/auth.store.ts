@@ -1,16 +1,19 @@
-export const useAuthStore = defineStore('useAuthStore', () => {
-  const setToken = (token?: string) => {
-    if (process.client)
-      localStorage.setItem('auth_token', token || '');
-  }
+import { getCurrentUser } from "~/services/auth.service";
 
-  const getToken = (token?: string) => {
-    if (process.client)
-      return localStorage.getItem('auth_token');
-  }
+export const useAuthStore = defineStore('useAuthStore', () => {
+  const setToken = (token?: string) => process.client && localStorage.setItem('auth_token', token || '')
+  const getToken = (key: string) => process.client && localStorage.getItem(key)
+  const removeToken = (key: string) => process.client && localStorage.removeItem(key)
+
+  const getAuthToken = () => getToken('auth_token')
+  const getUser = async () => await getCurrentUser()
+  const login = (token: string) => setToken(token)
+  const logout = () => removeToken('auth_token')
 
   return {
-    setToken,
-    getToken,
+    getUser,
+    getAuthToken,
+    login,
+    logout,
   }
 })

@@ -1,10 +1,39 @@
 <script setup lang="ts">
 import { useLayoutStore } from '@/store/layout.store'
+import { routerKey } from 'vue-router';
+import { useAuthStore } from '~/store/auth.store';
 
-const store = useLayoutStore()
+const layoutStore = useLayoutStore()
+const authStore = useAuthStore()
+const router = useRouter()
 
 const search = (payload: string) => {
   console.log(payload)
+}
+
+const pending = ref(true)
+const logged = ref(false)
+
+if (authStore.getAuthToken()) {
+  const user = await authStore.getUser()
+  watch(() => user.status.value, value => {
+    if (value === 'success') {
+      logged.value = true
+    }
+  }, {
+    immediate: true
+  })
+}
+
+pending.value = false
+
+const logout = () => {
+  authStore.logout()
+  router.push({ name: 'Login' })
+}
+
+const redirectToLogin = () => {
+  router.push({ name: 'Login' })
 }
 </script>
 
@@ -13,19 +42,20 @@ const search = (payload: string) => {
     <BaseCard size="full">
       <div class="header">
         <div class="title">
-          <NuxtLink v-if="store.backLink" :to="store.backLink">
+          <NuxtLink v-if="layoutStore.backLink" :to="layoutStore.backLink">
             <BaseButton type="link">
               <font-awesome-icon :icon="['fas', 'chevron-left']" />
             </BaseButton>
           </NuxtLink>
-          <BaseTitle>{{ store.title }}</BaseTitle>
+          <BaseTitle>{{ layoutStore.title }}</BaseTitle>
         </div>
 
         <div class="buttons">
           <BaseInputSearch placeholder="Pesquisar" @search="search" />
-          <NuxtLink to="/login">
-            <BaseButton type="link">Sair</BaseButton>
-          </NuxtLink>
+          <template v-if="!pending">
+            <BaseButton type="link" v-if="logged" @click="logout">Sair</BaseButton>
+            <BaseButton v-else @click="redirectToLogin">Entrar</BaseButton>
+          </template>
         </div>
       </div>
     </BaseCard>
@@ -54,7 +84,7 @@ const search = (payload: string) => {
 .buttons {
   display: flex;
   gap: var(--spacing-md);
-  align-items: center;
+  align-items: stretch;
 }
 
 .title {

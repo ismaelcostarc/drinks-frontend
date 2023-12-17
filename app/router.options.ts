@@ -4,17 +4,17 @@ export default <RouterConfig> {
   // https://router.vuejs.org/api/interfaces/routeroptions.html#routes
   routes: (_routes) => [
     {
-      name: 'login',
+      name: 'Login',
       path: '/login',
       component: () => import('~/pages/auth/Login.vue').then(r => r.default || r)
     },
     {
-      name: 'categories',
+      name: 'Categories',
       path: '/',
       component: () => import('~/pages/Categories.vue').then(r => r.default || r)
     },
     {
-      name: 'drinks',
+      name: 'Drinks',
       path: '/drinks/:categoryId',
       component: () => import('~/pages/Drinks.vue').then(r => r.default || r)
     },

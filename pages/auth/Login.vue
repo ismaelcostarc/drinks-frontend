@@ -4,6 +4,7 @@ import { useAuthStore } from '~/store/auth.store';
 import { useToast } from 'vue-toastification'
 
 const toast = useToast()
+const router = useRouter()
 
 const email = ref('');
 const password = ref('');
@@ -16,16 +17,17 @@ const signIn = async () => {
     password: password.value,
   })
 
-  if(response.error.value) {
-    if(response.error.value.statusCode === 400) {
+  if (response.error.value) {
+    if (response.error.value.statusCode === 400) {
       toast.error("O e-mail ou senha estão incorretos.")
     }
 
-    if(response.error.value.statusCode === 500) {
+    if (response.error.value.statusCode === 500) {
       toast.error("O servidor está fora do ar, tente novamente mais tarde.")
     }
   } else {
-    useAuthStore().setToken(response?.data.value?.token)
+    useAuthStore().login(response?.data.value?.token ?? '')
+    router.push({ name: 'Categories' })
   }
 }
 </script>
