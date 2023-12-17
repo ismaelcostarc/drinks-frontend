@@ -11,4 +11,12 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
+  runtimeConfig: {
+    public: {
+      baseURL: process.env.BASE_URL || 'https://api.example.com/',
+    },
+  },
+  build: {
+    transpile: ['vue-toastification']
+  },
 })
