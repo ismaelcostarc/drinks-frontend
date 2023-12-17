@@ -3,8 +3,7 @@ import { useLayoutStore } from '@/store/layout.store'
 import { useToast } from 'vue-toastification'
 import type { TableRow } from '~/components/base/table/base-table.types';
 import { searchDrinks } from '~/services/drinks.service';
-
-const drinks = ref<TableRow[]>([])
+import DrinksSearchModal from './components/DrinksSearchModal.vue'
 
 const route = useRoute()
 const toast = useToast()
@@ -23,29 +22,45 @@ const response = await searchDrinks(
   `${route.params.search}`
 )
 
-watch(() => response.data.value, value => {
-  drinks.value = value?.map(category => {
+const drinks = computed(() => {
+  const data: TableRow[] = response.data.value?.map(category => {
     return [
       {
+        id: category.id,
         content: category.name,
-        link: '/drinks/' + category.id
+        callback: (id?: string) => {
+          choosenDrink.value = id ?? ''
+          showModal()
+        }
       },
       {
         content: category.description
       }
     ]
   }) ?? []
+
+  return data
 })
 
 if (response.error.value?.statusCode === 500) {
   toast.error("O servidor está fora do ar, tente novamente mais tarde.")
 }
 
+const choosenDrink = ref('')
+const modalIsVisible = ref(false)
+
+const closeModal = () => modalIsVisible.value = false
+const showModal = () => modalIsVisible.value = true
 </script>
 
 <template>
   <NuxtLayout>
-    <BaseTable :headers="headers" :data="drinks" v-if="drinks.length > 0" />
+    <template v-if="drinks.length > 0">
+      <BaseTable :headers="headers" :data="drinks" />
+
+      <DrinksSearchModal :id="choosenDrink" @close="closeModal" v-if="modalIsVisible" />
+    </template>
+
     <div v-else class="no-results">
       A pesquisa não apresentou resultados.
     </div>

@@ -21,7 +21,7 @@ export default <RouterConfig> {
     {
       name: 'DrinksSearch',
       path: '/drinks/search/:search',
-      component: () => import('~/pages/DrinksSearch.vue').then(r => r.default || r)
+      component: () => import('~/pages/drinks-search/DrinksSearch.vue').then(r => r.default || r)
     },
   ],
 }

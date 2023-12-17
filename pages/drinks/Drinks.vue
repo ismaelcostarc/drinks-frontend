@@ -41,7 +41,7 @@ watch(() => response.data.value, value => {
         content: category.name,
         callback: (id?: string) => {
           choosenDrink.value = id ?? ''
-          modalIsVisible.value = true
+          showModal()
         }
       },
       {
