@@ -19,11 +19,7 @@ const signIn = async () => {
 
   if (response.error.value) {
     if (response.error.value.statusCode === 400) {
-      toast.error("O e-mail ou senha estão incorretos.")
-    }
-
-    if (response.error.value.statusCode === 500) {
-      toast.error("O servidor está fora do ar, tente novamente mais tarde.")
+      toast.error("As credenciais estão incorretas.")
     }
   } else {
     useAuthStore().login(response?.data.value?.token ?? '')

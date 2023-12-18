@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { useLayoutStore } from '@/store/layout.store'
-import { useToast } from 'vue-toastification'
 import type { TableRow } from '~/components/base/table/base-table.types';
 import { deleteFavorite, getFavorites } from '~/services/favorites.service';
 import type { Drink } from '~/types/drink.types';
 import { getDrink } from '~/services/drinks.service';
 
-const route = useRoute()
-const toast = useToast()
 const store = useLayoutStore()
 
 const choosenDrink = ref<Drink>()
@@ -47,22 +44,13 @@ const favorites = computed(() => {
   return data
 })
 
-if (response.error.value?.statusCode === 500) {
-  toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-}
-
 const modalIsVisible = ref(false)
 
 const closeModal = () => modalIsVisible.value = false
 const showModal = () => modalIsVisible.value = true
 
 const removeFavorite = async (id: string) => {
-  const responsePostFavorite = await deleteFavorite(id)
-
-  if (responsePostFavorite.error.value?.statusCode === 500) {
-    toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-  }
-
+  await deleteFavorite(id)
   response.refresh()
 }
 </script>

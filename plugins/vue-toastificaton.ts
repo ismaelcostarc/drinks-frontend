@@ -3,7 +3,7 @@ import 'vue-toastification/dist/index.css'
 
 export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.vueApp.use(Toast, {
-    position: "top-right", timeout: 5000,
+    position: "top-right", timeout: 2000,
     closeOnClick: true,
   })
 })

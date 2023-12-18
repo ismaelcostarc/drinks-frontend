@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { useLayoutStore } from '@/store/layout.store'
-import { useToast } from 'vue-toastification'
 import type { TableRow } from '~/components/base/table/base-table.types';
 import { getCategory } from '~/services/categories.service';
 import { getDrink, getDrinksByCategory } from '~/services/drinks.service';
@@ -9,7 +8,6 @@ import type { Drink } from '~/types/drink.types';
 import { useAuthStore } from '~/store/auth.store';
 
 const route = useRoute()
-const toast = useToast()
 const store = useLayoutStore()
 const authStore = useAuthStore()
 
@@ -61,37 +59,19 @@ const drinks = computed(() => {
   return data
 })
 
-if (response.error.value?.statusCode === 500) {
-  toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-}
-
 const favorites = await getFavorites()
 
 const isFavorite = (id: string) => {
   return !!favorites.data.value?.find(favorite => favorite.id === id)
 }
 
-if (favorites.error.value?.statusCode === 500) {
-  toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-}
-
 const favoriteDrink = async (id: string) => {
-  const responsePostFavorite = await postFavorite(id)
-
-  if (responsePostFavorite.error.value?.statusCode === 500) {
-    toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-  }
-
+  postFavorite(id)
   favorites.refresh()
 }
 
 const removeFavorite = async (id: string) => {
-  const responsePostFavorite = await deleteFavorite(id)
-
-  if (responsePostFavorite.error.value?.statusCode === 500) {
-    toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-  }
-
+  await deleteFavorite(id)
   favorites.refresh()
 }
 
