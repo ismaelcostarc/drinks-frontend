@@ -15,13 +15,18 @@ export default <RouterConfig> {
     },
     {
       name: 'Drinks',
-      path: '/drinks/:categoryId',
+      path: '/category/:categoryId/drinks',
       component: () => import('~/pages/drinks/Drinks.vue').then(r => r.default || r)
     },
     {
       name: 'DrinksSearch',
       path: '/drinks/search/:search',
       component: () => import('~/pages/drinks-search/DrinksSearch.vue').then(r => r.default || r)
+    },
+    {
+      name: 'Favorites',
+      path: '/favorites',
+      component: () => import('~/pages/favorites/Favorites.vue').then(r => r.default || r)
     },
   ],
 }

@@ -21,7 +21,7 @@ if (authStore.getAuthToken()) {
 }
 pending.value = false
 
-const searchDrink = (payload: string) => {
+const goDrinksSearch = (payload: string) => {
   router.push(`/drinks/search/${payload}`)
 }
 
@@ -32,6 +32,10 @@ const logout = () => {
 
 const redirectToLogin = () => {
   router.push({ name: 'Login' })
+}
+
+const goFavorites = () => {
+  router.push({ name: 'Favorites' })
 }
 </script>
 
@@ -49,9 +53,17 @@ const redirectToLogin = () => {
         </div>
 
         <div class="buttons">
-          <BaseInputSearch placeholder="Pesquisar" @search="searchDrink" />
+          <BaseInputSearch placeholder="Pesquisar" @search="goDrinksSearch" />
           <template v-if="!pending">
-            <BaseButton type="link" v-if="logged" @click="logout">Sair</BaseButton>
+            <template v-if="logged">
+              <BaseButton type="outlined" @click="goFavorites">
+                <div class="button--favorites">
+                  <span>Favoritos</span>
+                  <font-awesome-icon :icon="['fas', 'star']" />
+                </div>
+              </BaseButton>
+              <BaseButton type="link" @click="logout">Sair</BaseButton>
+            </template>
             <BaseButton v-else @click="redirectToLogin">Entrar</BaseButton>
           </template>
         </div>
@@ -83,6 +95,12 @@ const redirectToLogin = () => {
   display: flex;
   gap: var(--spacing-md);
   align-items: stretch;
+}
+
+.button--favorites {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
 }
 
 .title {

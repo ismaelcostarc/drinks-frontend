@@ -11,3 +11,7 @@ export const searchDrinks = (search: string ) => {
 export const getDrink = (id: string ) => {
   return useCustomFetch<Drink>(`/drinks/${id}`, { method: "GET" })
 }
+
+export const getFavoriteDrinks = (id: string ) => {
+  return useCustomFetch<Drink>(`/drinks/${id}`, { method: "GET" })
+}

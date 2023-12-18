@@ -25,6 +25,10 @@ const props = defineProps<Props>()
           {{ data.content }}
         </BaseButton>
 
+        <div v-else-if="data.isAction">
+          <slot name="action" :payload="data.payload"/>
+        </div>
+
         <div v-else>
           {{ data.content }}
         </div>

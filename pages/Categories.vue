@@ -26,7 +26,7 @@ const categories = computed(() => {
     return [
       {
         content: category.name,
-        link: '/drinks/' + category.id
+        link: `/category/${category.id}/drinks`
       },
       {
         content: category.description
