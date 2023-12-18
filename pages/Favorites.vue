@@ -2,7 +2,7 @@
 import { useLayoutStore } from '@/store/layout.store'
 import { useToast } from 'vue-toastification'
 import type { TableRow } from '~/components/base/table/base-table.types';
-import { getFavorites } from '~/services/favorites.service';
+import { deleteFavorite, getFavorites } from '~/services/favorites.service';
 import type { Drink } from '~/types/drink.types';
 import { getDrink } from '~/services/drinks.service';
 
@@ -18,6 +18,7 @@ store.backLink = '/'
 const headers = [
   'Bebida',
   'Descrição',
+  'Ação',
 ]
 
 const response = await getFavorites()
@@ -35,7 +36,11 @@ const favorites = computed(() => {
       },
       {
         content: category.description
-      }
+      },
+      {
+        payload: category.id,
+        isAction: true,
+      },
     ]
   }) ?? []
 
@@ -50,12 +55,26 @@ const modalIsVisible = ref(false)
 
 const closeModal = () => modalIsVisible.value = false
 const showModal = () => modalIsVisible.value = true
+
+const removeFavorite = async (id: string) => {
+  const responsePostFavorite = await deleteFavorite(id)
+
+  if (responsePostFavorite.error.value?.statusCode === 500) {
+    toast.error("O servidor está fora do ar, tente novamente mais tarde.")
+  }
+
+  response.refresh()
+}
 </script>
 
 <template>
   <NuxtLayout>
     <template v-if="favorites.length > 0">
-      <BaseTable :headers="headers" :data="favorites" />
+      <BaseTable :headers="headers" :data="favorites">
+        <template #action="{ payload }">
+          <BaseButton type="outlined" @click="removeFavorite(payload as string)">Remover</BaseButton>
+        </template>
+      </BaseTable>
 
       <DrinkModal :drink="choosenDrink" @close="closeModal" v-if="modalIsVisible" />
     </template>

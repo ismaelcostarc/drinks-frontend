@@ -42,17 +42,21 @@ const goFavorites = () => {
         </div>
 
         <div class="buttons">
-          <BaseInputSearch placeholder="Pesquisar" @search="goDrinksSearch" />
           <template v-if="!pending">
             <template v-if="authStore.isAuthenticated">
-              <BaseButton type="outlined" @click="goFavorites">
+              <BaseButton type="link" @click="goFavorites">
                 <div class="button--favorites">
                   <span>Favoritos</span>
                 </div>
               </BaseButton>
-              <BaseButton type="link" @click="logout">Sair</BaseButton>
+              <BaseInputSearch placeholder="Pesquisar" @search="goDrinksSearch" />
+              <BaseButton type="error" @click="logout">Sair</BaseButton>
             </template>
-            <BaseButton v-else @click="redirectToLogin">Entrar</BaseButton>
+
+            <template v-else>
+              <BaseInputSearch placeholder="Pesquisar" @search="goDrinksSearch" />
+              <BaseButton @click="redirectToLogin">Entrar</BaseButton>
+            </template>
           </template>
         </div>
       </div>

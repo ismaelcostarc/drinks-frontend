@@ -40,7 +40,11 @@ const signInWithoutLogin = () => {
   <NuxtLayout name="empty">
     <div class="base-card__container">
       <BaseCard size="medium" class="base-card">
-        <template #header>logotipo</template>
+        <template #header>
+          <div class="logo">
+            <img alt="logo" src="@/assets/img/logo.png" width="100" height="100" />
+          </div>
+        </template>
         <template #default>
           <BaseForm>
             <BaseInputText label="E-mail:" v-model="email" />
@@ -80,6 +84,12 @@ const signInWithoutLogin = () => {
   display: flex;
   flex-direction: column;
   gap: var(--spacing-md);
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
   align-items: center;
 }
 </style>
