@@ -31,7 +31,8 @@ const drinks = computed(() => {
         callback: (id?: string) => {
           choosenDrink.value = id ?? ''
           showModal()
-        }
+        },
+        highlightTerm: route.params.search as string,
       },
       {
         content: category.description

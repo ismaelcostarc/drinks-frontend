@@ -7,6 +7,23 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const highlightTermInWord = (content: string = '', highlightTerm: string = '') => {
+  // Encontrar o índice do termo na palavra
+  const index = content.toLowerCase().indexOf(highlightTerm.toLowerCase());
+
+  if (index !== -1) {
+    // Se o termo for encontrado na palavra, destacar o termo
+    const start = content.substring(0, index);
+    const highlighted = content.substring(index, index + highlightTerm.length);
+    const end = content.substring(index + highlightTerm.length);
+
+    return `${start}<span style="font-weight: bolder;">${highlighted}</span>${end}`;
+  }
+
+  // Se o termo não for encontrado na palavra, retornar a palavra original
+  return content;
+}
 </script>
 
 <template>
@@ -22,11 +39,11 @@ const props = defineProps<Props>()
         </NuxtLink>
 
         <BaseButton v-else-if="data.callback" @click="() => data.callback && data.callback(data.id)" type="link">
-          {{ data.content }}
+          <div v-html="highlightTermInWord(data.content, data.highlightTerm)"></div>
         </BaseButton>
 
         <div v-else-if="data.isAction">
-          <slot name="action" :payload="data.payload"/>
+          <slot name="action" :payload="data.payload" />
         </div>
 
         <div v-else>
@@ -54,7 +71,8 @@ td {
   padding: var(--spacing-lg)
 }
 
-.base-table-data--link {
-  color: var(--color-link)
+.highlighted {
+  font-weight: bolder;
+  color: red;
 }
 </style>
