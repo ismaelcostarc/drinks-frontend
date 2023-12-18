@@ -19,5 +19,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ['vue-toastification']
   },
-  ssr: false,
+  app: {
+    head: {
+      title: 'Drinks'
+    }
+  }
 })
