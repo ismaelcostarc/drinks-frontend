@@ -1,7 +1,6 @@
 import type { RouterConfig } from '@nuxt/schema'
 
 export default <RouterConfig> {
-  // https://router.vuejs.org/api/interfaces/routeroptions.html#routes
   routes: (_routes) => [
     {
       name: 'Login',
@@ -10,7 +9,7 @@ export default <RouterConfig> {
         public: true,
         dontNeedAuth: true
       },
-      component: () => import('~/pages/auth/Login.vue').then(r => r.default || r)
+      component: () => import('~/pages/Login.vue').then(r => r.default || r)
     },
     {
       name: 'Categories',
@@ -26,7 +25,7 @@ export default <RouterConfig> {
       meta: {
         public: true,
       },
-      component: () => import('~/pages/drinks/Drinks.vue').then(r => r.default || r)
+      component: () => import('~/pages/Drinks.vue').then(r => r.default || r)
     },
     {
       name: 'DrinksSearch',
@@ -34,12 +33,12 @@ export default <RouterConfig> {
       meta: {
         public: true,
       },
-      component: () => import('~/pages/drinks-search/DrinksSearch.vue').then(r => r.default || r)
+      component: () => import('~/pages/DrinksSearch.vue').then(r => r.default || r)
     },
     {
       name: 'Favorites',
       path: '/favorites',
-      component: () => import('~/pages/favorites/Favorites.vue').then(r => r.default || r)
+      component: () => import('~/pages/Favorites.vue').then(r => r.default || r)
     },
   ],
 }
