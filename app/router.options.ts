@@ -1,6 +1,6 @@
 import type { RouterConfig } from '@nuxt/schema'
 
-export default <RouterConfig> {
+export default <RouterConfig>{
   routes: (_routes) => [
     {
       name: 'Login',
@@ -12,8 +12,14 @@ export default <RouterConfig> {
       component: () => import('~/pages/Login.vue').then(r => r.default || r)
     },
     {
-      name: 'Categories',
       path: '/',
+      redirect(_) {
+        return { path: '/categories' }
+      },
+    },
+    {
+      name: 'Categories',
+      path: '/categories',
       meta: {
         public: true,
       },
