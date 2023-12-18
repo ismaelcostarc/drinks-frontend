@@ -64,25 +64,14 @@ if (response.error.value?.statusCode === 500) {
   toast.error("O servidor está fora do ar, tente novamente mais tarde.")
 }
 
-const favoritesData = ref<Drink[] | null>(null)
-
 const favorites = await getFavorites()
 
-watch(() => favorites.status.value, () => {
-  favoritesData.value = favorites.data.value
-})
-
 const isFavorite = (id: string) => {
-  return !!favoritesData.value?.find(favorite => favorite.id === id)
+  return !!favorites.data.value?.find(favorite => favorite.id === id)
 }
 
 if (favorites.error.value?.statusCode === 500) {
   toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-}
-
-const updateFavorites = async () => {
-  const { data } = await getFavorites()
-  favoritesData.value = data.value
 }
 
 const favoriteDrink = async (id: string) => {
@@ -92,7 +81,7 @@ const favoriteDrink = async (id: string) => {
     toast.error("O servidor está fora do ar, tente novamente mais tarde.")
   }
 
-  await updateFavorites()
+  favorites.refresh()
 }
 
 const removeFavorite = async (id: string) => {
@@ -102,7 +91,7 @@ const removeFavorite = async (id: string) => {
     toast.error("O servidor está fora do ar, tente novamente mais tarde.")
   }
 
-  await updateFavorites()
+  favorites.refresh()
 }
 
 const choosenDrink = ref('')
