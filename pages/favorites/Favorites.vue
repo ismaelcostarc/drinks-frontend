@@ -2,12 +2,15 @@
 import { useLayoutStore } from '@/store/layout.store'
 import { useToast } from 'vue-toastification'
 import type { TableRow } from '~/components/base/table/base-table.types';
-import FavoritesModal from './components/FavoritesModal.vue'
 import { getFavorites } from '~/services/favorites.service';
+import type { Drink } from '~/types/drink.types';
+import { getDrink } from '~/services/drinks.service';
 
 const route = useRoute()
 const toast = useToast()
 const store = useLayoutStore()
+
+const choosenDrink = ref<Drink>()
 
 store.title = 'Favoritos'
 store.backLink = '/'
@@ -25,8 +28,8 @@ const favorites = computed(() => {
       {
         id: category.id,
         content: category.name,
-        callback: (id?: string) => {
-          choosenDrink.value = id ?? ''
+        callback: async (id?: string) => {
+          choosenDrink.value = (await getDrink(id ?? '')).data.value ?? undefined
           showModal()
         }
       },
@@ -43,7 +46,6 @@ if (response.error.value?.statusCode === 500) {
   toast.error("O servidor está fora do ar, tente novamente mais tarde.")
 }
 
-const choosenDrink = ref('')
 const modalIsVisible = ref(false)
 
 const closeModal = () => modalIsVisible.value = false
@@ -55,7 +57,7 @@ const showModal = () => modalIsVisible.value = true
     <template v-if="favorites.length > 0">
       <BaseTable :headers="headers" :data="favorites" />
 
-      <FavoritesModal :id="choosenDrink" @close="closeModal" v-if="modalIsVisible" />
+      <DrinkModal :drink="choosenDrink" @close="closeModal" v-if="modalIsVisible" />
     </template>
     <div v-else class="no-results">
       Não existem favoritos

@@ -1,32 +1,23 @@
 <script setup lang="ts">
 import { useToast } from 'vue-toastification';
-import { getDrink } from '~/services/drinks.service';
+import type { Drink } from '~/types/drink.types';
 
 const props = defineProps<{
-  id?: string;
+  drink?: Drink;
 }>()
 
 const emits = defineEmits(['close'])
-
-const toast = useToast()
-
-const drink = await getDrink(props.id ?? '')
-
-if (drink.error.value?.statusCode === 500) {
-  toast.error("O servidor está fora do ar, tente novamente mais tarde.")
-  emits('close')
-}
 </script>
 
 <template>
   <BaseModal>
     <template #header>
-      <BaseTitle>{{ drink.data.value?.name }}</BaseTitle>
+      <BaseTitle>{{ props.drink?.name }}</BaseTitle>
     </template>
 
     <div class="modal__content">
-      <img :src="drink.data.value?.img_url" class="drink__img" :alt="drink.data.value?.name"/>
-      <div>{{ drink.data.value?.description }}</div>
+      <img :src="props.drink?.img_url" class="drink__img" :alt="props.drink?.name"/>
+      <div>{{ props.drink?.description }}</div>
     </div>
     <template #footer>
 
