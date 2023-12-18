@@ -30,6 +30,10 @@ const signIn = async () => {
     router.push({ name: 'Categories' })
   }
 }
+
+const signInWithoutLogin = () => {
+  router.push({ name: 'Categories' })
+}
 </script>
 
 <template>
@@ -45,8 +49,8 @@ const signIn = async () => {
         </template>
         <template #footer>
           <div class="buttons__container">
-            <BaseButton :disabled="isDisabled" @click="signIn">Entrar</BaseButton>
-            <BaseButton type="link" size="small">Cadastre-se</BaseButton>
+            <BaseButton :disabled="isDisabled" @click="signIn">Login</BaseButton>
+            <BaseButton type="link" size="small" @click="signInWithoutLogin">Entrar sem login</BaseButton>
           </div>
         </template>
       </BaseCard>
