@@ -5,11 +5,14 @@ import type { TableRow } from '~/components/base/table/base-table.types';
 import { getCategory } from '~/services/categories.service';
 import { getDrinksByCategory } from '~/services/drinks.service';
 import DrinksModal from './components/DrinksModal.vue'
-import { getFavorites, postFavorite } from '~/services/favorites.service';
+import { deleteFavorite, getFavorites, postFavorite } from '~/services/favorites.service';
+import type { Drink } from '~/types/drink.types';
+import { useAuthStore } from '~/store/auth.store';
 
 const route = useRoute()
 const toast = useToast()
 const store = useLayoutStore()
+const authStore = useAuthStore()
 
 const category = await getCategory(
   `${route.params.categoryId}`
@@ -49,7 +52,7 @@ const drinks = computed(() => {
       },
       {
         payload: category.id,
-        isAction: true,
+        isAction: authStore.isAuthenticated,
       },
     ]
   }) ?? []
@@ -61,20 +64,26 @@ if (response.error.value?.statusCode === 500) {
   toast.error("O servidor está fora do ar, tente novamente mais tarde.")
 }
 
+const favoritesData = ref<Drink[] | null>(null)
+
 const favorites = await getFavorites()
+
+watch(() => favorites.status.value, () => {
+  favoritesData.value = favorites.data.value
+})
+
 const isFavorite = (id: string) => {
-  return !!favorites.data.value?.find(favorite => favorite.id === id)
+  return !!favoritesData.value?.find(favorite => favorite.id === id)
 }
 
 if (favorites.error.value?.statusCode === 500) {
   toast.error("O servidor está fora do ar, tente novamente mais tarde.")
 }
 
-const choosenDrink = ref('')
-const modalIsVisible = ref(false)
-
-const closeModal = () => modalIsVisible.value = false
-const showModal = () => modalIsVisible.value = true
+const updateFavorites = async () => {
+  const { data } = await getFavorites()
+  favoritesData.value = data.value
+}
 
 const favoriteDrink = async (id: string) => {
   const responsePostFavorite = await postFavorite(id)
@@ -82,7 +91,24 @@ const favoriteDrink = async (id: string) => {
   if (responsePostFavorite.error.value?.statusCode === 500) {
     toast.error("O servidor está fora do ar, tente novamente mais tarde.")
   }
+
+  await updateFavorites()
 }
+
+const removeFavorite = async (id: string) => {
+  const responsePostFavorite = await deleteFavorite(id)
+
+  if (responsePostFavorite.error.value?.statusCode === 500) {
+    toast.error("O servidor está fora do ar, tente novamente mais tarde.")
+  }
+
+  await updateFavorites()
+}
+
+const choosenDrink = ref('')
+const modalIsVisible = ref(false)
+const closeModal = () => modalIsVisible.value = false
+const showModal = () => modalIsVisible.value = true
 </script>
 
 <template>
@@ -90,9 +116,10 @@ const favoriteDrink = async (id: string) => {
     <BaseTable :headers="headers" :data="drinks">
       <template #action="{ payload }">
         <div class="favorite-button__container">
-          <span class="favorite-button" @click="favoriteDrink(payload as string)">
-            <font-awesome-icon :icon="['fas', 'star']" v-if="isFavorite(payload as string)" />
-            <font-awesome-icon :icon="['far', 'star']" v-else />
+          <span class="favorite-button">
+            <font-awesome-icon :icon="['fas', 'star']" v-if="isFavorite(payload as string)"
+              @click="removeFavorite(payload as string)" />
+            <font-awesome-icon :icon="['far', 'star']" v-else @click="favoriteDrink(payload as string)" />
           </span>
         </div>
       </template>
@@ -115,5 +142,6 @@ const favoriteDrink = async (id: string) => {
 
 .favorite-button {
   cursor: pointer;
+  color: var(--color-warning);
 }
 </style>

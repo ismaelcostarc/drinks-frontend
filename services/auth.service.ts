@@ -1,3 +1,5 @@
+import type { User } from "~/types/user.types";
+
 interface LoginPayload {
   email: string;
   password: string;
@@ -13,17 +15,8 @@ export const login = (payload: LoginPayload) => {
   return useCustomFetch<LoginResponse>('/auth/login', { body: payload, method: "POST" })
 }
 
-interface GetCurrentUserResponse {
-  id: string;
-  email: string;
-  name: string;
-  remember_me_token: string;
-  created_at: string;
-  updated_at: string;
-}
-
 export const getCurrentUser = () => {
-  return useCustomFetch<GetCurrentUserResponse>('/auth/current-user',
+  return useCustomFetch<User>('/auth/current-user',
     { method: "GET" },
     true
   )

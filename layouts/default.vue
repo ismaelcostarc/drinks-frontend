@@ -8,17 +8,6 @@ const authStore = useAuthStore()
 const router = useRouter()
 
 const pending = ref(true)
-const logged = ref(false)
-if (authStore.getAuthToken()) {
-  const user = await authStore.getUser()
-  watch(() => user.status.value, value => {
-    if (value === 'success') {
-      logged.value = true
-    }
-  }, {
-    immediate: true
-  })
-}
 pending.value = false
 
 const goDrinksSearch = (payload: string) => {
@@ -55,11 +44,10 @@ const goFavorites = () => {
         <div class="buttons">
           <BaseInputSearch placeholder="Pesquisar" @search="goDrinksSearch" />
           <template v-if="!pending">
-            <template v-if="logged">
+            <template v-if="authStore.isAuthenticated">
               <BaseButton type="outlined" @click="goFavorites">
                 <div class="button--favorites">
                   <span>Favoritos</span>
-                  <font-awesome-icon :icon="['fas', 'star']" />
                 </div>
               </BaseButton>
               <BaseButton type="link" @click="logout">Sair</BaseButton>

@@ -52,14 +52,28 @@ const showModal = () => modalIsVisible.value = true
 
 <template>
   <NuxtLayout>
-    <BaseTable :headers="headers" :data="favorites" />
+    <template v-if="favorites.length > 0">
+      <BaseTable :headers="headers" :data="favorites" />
 
-    <FavoritesModal :id="choosenDrink" @close="closeModal" v-if="modalIsVisible"/>
+      <FavoritesModal :id="choosenDrink" @close="closeModal" v-if="modalIsVisible" />
+    </template>
+    <div v-else class="no-results">
+      Não existem favoritos
+    </div>
   </NuxtLayout>
 </template>
 
 <style>
 .text {
   color: var(--color-primary);
+}
+
+.no-results {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-large);
+  color: var(--color-dark-gray);
+  min-height: 50vh;
 }
 </style>
