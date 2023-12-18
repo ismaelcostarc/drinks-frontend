@@ -1,36 +1,37 @@
-# Nuxt 3 Minimal Starter
+# Drinks Frontend
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Projeto de um sistema onde o usuário pode visualizar bebidas e criar favoritos.
+
+Nesse sistema o usuário pode:
+
+- Visualizar uma lista de categoritas de bebidas;
+- Clicar em uma categoria e visualizar as bebidas dentro dessa categoria;
+- Pesquisar por bebidas;
+- Fazer login e favoritar bebidas;
+- Visualizar seus favoritos;
 
 ## Setup
 
-Make sure to install the dependencies:
+A versão do *Node* utilizada é a v20.5.1, e *npm* na versão 9.8.0.
+
+Instale as dependências:
 
 ```bash
-# yarn
-yarn install
+npm install
 ```
 
-## Development Server
+## Variáveis de ambiente
 
-Start the development server on `http://localhost:3000`:
+Copie o arquivo com as variáveis de ambiente:
 
 ```bash
-yarn dev
+cp .env.example .env
 ```
 
-## Production
+## Servidor de desenvolvimento
 
-Build the application for production:
-
-```bash
-# yarn
-yarn build
-```
-
-Locally preview production build:
+Confira se o backend está rodando, se estiver, rode o servidor do frontend em `http://localhost:3000`:
 
 ```bash
-# yarn
-yarn preview
+npm run dev
 ```
