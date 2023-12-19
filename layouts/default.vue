@@ -45,9 +45,7 @@ const goFavorites = () => {
           <template v-if="!pending">
             <template v-if="authStore.isAuthenticated">
               <BaseButton type="link" @click="goFavorites">
-                <div class="button--favorites">
-                  <span>Favoritos</span>
-                </div>
+                Favoritos
               </BaseButton>
               <BaseInputSearch placeholder="Pesquisar" @search="goDrinksSearch" />
               <BaseButton type="error" @click="logout">Sair</BaseButton>
@@ -81,6 +79,23 @@ const goFavorites = () => {
   justify-content: space-between;
   align-items: center;
   padding: 0 var(--spacing-lg);
+}
+
+@media (max-width: 720px) {
+  .header {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-lg)
+  }
+
+  .buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .button--favorites span {
+    text-align: center;
+  }
 }
 
 .buttons {
