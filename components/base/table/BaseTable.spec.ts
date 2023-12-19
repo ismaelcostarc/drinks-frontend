@@ -11,7 +11,8 @@ describe('BaseTable.vue', () => {
   it('renders headers correctly', async () => {
     const { getByText } = render(BaseTable, {
       props: {
-        headers: ['Header1', 'Header2'],
+        headers: [
+          { title: 'Header1' }, { title: 'Header2' }],
         data: [],
       },
       global: {
