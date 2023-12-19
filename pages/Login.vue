@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { login } from '~/services/auth.service';
 import { useAuthStore } from '~/store/auth.store';
 import { useToast } from 'vue-toastification'
+import { loginService } from '~/services/auth/login.service';
 
 const toast = useToast()
 const router = useRouter()
@@ -12,7 +12,7 @@ const password = ref('');
 const isDisabled = computed(() => !email.value || !password.value)
 
 const signIn = async () => {
-  const response = await login({
+  const response = await loginService({
     email: email.value,
     password: password.value,
   })

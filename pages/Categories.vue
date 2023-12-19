@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useLayoutStore } from '@/store/layout.store'
-import { getCategories } from '~/services/categories.service';
 import type { TableRow } from '~/components/base/table/base-table.types';
+import { useLayoutStore } from '@/store/layout.store'
+import { getCategoriesService } from '~/services/categories/getCategories.service';
 
 const store = useLayoutStore()
 store.title = 'Categorias'
@@ -12,7 +12,7 @@ const headers = [
   'Descrição',
 ]
 
-const response = await getCategories()
+const response = await getCategoriesService()
 
 const categories = computed(() => {
   const data: TableRow[] = response.data.value?.map(category => {

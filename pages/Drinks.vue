@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { useLayoutStore } from '@/store/layout.store'
 import type { TableRow } from '~/components/base/table/base-table.types';
-import { getCategory } from '~/services/categories.service';
-import { getDrink, getDrinksByCategory } from '~/services/drinks.service';
-import { deleteFavorite, getFavorites, postFavorite } from '~/services/favorites.service';
 import type { Drink } from '~/types/drink.type';
+import { useLayoutStore } from '@/store/layout.store'
 import { useAuthStore } from '~/store/auth.store';
+import { getCategoryService } from '~/services/categories/getCategory.service';
+import { getDrinksByCategoryService } from '~/services/drinks/getDrinksByCategory.service';
+import { getDrinkService } from '~/services/drinks/getDrink.service';
+import { getFavoritesService } from '~/services/favorites/getFavorites.service';
+import { addFavoriteService } from '~/services/favorites/addFavorite.service';
+import { removeFavoriteService } from '~/services/favorites/removeFavorite.service';
 
 const route = useRoute()
 const store = useLayoutStore()
@@ -14,7 +17,7 @@ const modal = useModal()
 
 const choosenDrink = ref<Drink>()
 
-const category = await getCategory(
+const category = await getCategoryService(
   `${route.params.categoryId}`
 )
 
@@ -29,51 +32,61 @@ store.backLink = '/'
 const headers = [
   'Bebida',
   'Descrição',
-  'Favorito',
 ]
 
-const response = await getDrinksByCategory(
+if (authStore.isAuthenticated) {
+  headers.push('Favorito')
+}
+
+const response = await getDrinksByCategoryService(
   `${route.params.categoryId}`
 )
 
 const drinks = computed(() => {
   const data: TableRow[] = response.data.value?.map(category => {
-    return [
+    const row: TableRow = [
       {
         id: category.id,
         content: category.name,
         callback: async (id?: string) => {
-          choosenDrink.value = (await getDrink(id ?? '')).data.value ?? undefined
+          choosenDrink.value = (await getDrinkService(id ?? '')).data.value ?? undefined
           modal.showModal()
         }
       },
       {
         content: category.description
       },
-      {
-        payload: category.id,
-        isAction: authStore.isAuthenticated,
-      },
     ]
+
+    if (authStore.isAuthenticated) {
+      row.push(
+        {
+          payload: category.id,
+          isAction: authStore.isAuthenticated,
+        },
+      )
+    }
+
+    return row
   }) ?? []
 
   return data
 })
 
-const favorites = await getFavorites()
+const favorites = await getFavoritesService()
 
 const isFavorite = (id: string) => {
   return !!favorites.data.value?.find(favorite => favorite.id === id)
 }
 
 const favoriteDrink = async (id: string) => {
-  postFavorite(id)
-  favorites.refresh()
+  await addFavoriteService(id)
+  await favorites.refresh()
 }
 
 const removeFavorite = async (id: string) => {
-  await deleteFavorite(id)
-  favorites.refresh()
+  await removeFavoriteService(id)
+  await favorites.refresh()
 }
 </script>
 

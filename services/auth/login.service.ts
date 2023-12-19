@@ -1,5 +1,3 @@
-import type { User } from "~/types/user.type";
-
 interface LoginPayload {
   email: string;
   password: string;
@@ -11,13 +9,6 @@ interface LoginResponse {
   expires_at: string;
 }
 
-export const login = (payload: LoginPayload) => {
+export const loginService = (payload: LoginPayload) => {
   return useCustomFetch<LoginResponse>('/auth/login', { body: payload, method: "POST" })
-}
-
-export const getCurrentUser = () => {
-  return useCustomFetch<User>('/auth/current-user',
-    { method: "GET" },
-    true
-  )
 }

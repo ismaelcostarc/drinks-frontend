@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { useLayoutStore } from '@/store/layout.store'
-import type { TableRow } from '~/components/base/table/base-table.types';
-import { deleteFavorite, getFavorites } from '~/services/favorites.service';
 import type { Drink } from '~/types/drink.type';
-import { getDrink } from '~/services/drinks.service';
+import type { TableRow } from '~/components/base/table/base-table.types';
+import { useLayoutStore } from '@/store/layout.store'
+import { getDrinkService } from '~/services/drinks/getDrink.service';
+import { getFavoritesService } from '~/services/favorites/getFavorites.service';
+import { removeFavoriteService } from '~/services/favorites/removeFavorite.service';
 
 const store = useLayoutStore()
 const modal = useModal()
@@ -19,7 +20,7 @@ const headers = [
   'Ação',
 ]
 
-const response = await getFavorites()
+const response = await getFavoritesService()
 
 const favorites = computed(() => {
   const data: TableRow[] = response.data.value?.map(category => {
@@ -28,7 +29,7 @@ const favorites = computed(() => {
         id: category.id,
         content: category.name,
         callback: async (id?: string) => {
-          choosenDrink.value = (await getDrink(id ?? '')).data.value ?? undefined
+          choosenDrink.value = (await getDrinkService(id ?? '')).data.value ?? undefined
           modal.showModal()
         }
       },
@@ -46,7 +47,7 @@ const favorites = computed(() => {
 })
 
 const removeFavorite = async (id: string) => {
-  await deleteFavorite(id)
+  await removeFavoriteService(id)
   response.refresh()
 }
 </script>

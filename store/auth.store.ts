@@ -1,4 +1,4 @@
-import { getCurrentUser } from "~/services/auth.service";
+import { getCurrentUserService } from "~/services/auth/getCurrentUser.service";
 import type { User } from "~/types/user.type";
 
 export const useAuthStore = defineStore('useAuthStore', () => {
@@ -9,7 +9,7 @@ export const useAuthStore = defineStore('useAuthStore', () => {
   const removeToken = (key: string) => process.client && localStorage.removeItem(key)
 
   const getAuthToken = () => getToken('auth_token')
-  const fetchUser = async () => await getCurrentUser()
+  const fetchUser = async () => await getCurrentUserService()
   const setUser = (payload: User | null) => user.value = payload
   const getUser = () => user.value
   const login = (token: string) => setToken(token)

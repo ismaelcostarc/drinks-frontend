@@ -1,8 +1,9 @@
 <script setup lang="ts">
-import { useLayoutStore } from '@/store/layout.store'
-import type { TableRow } from '~/components/base/table/base-table.types';
-import { getDrink, searchDrinks } from '~/services/drinks.service';
 import type { Drink } from '~/types/drink.type';
+import type { TableRow } from '~/components/base/table/base-table.types';
+import { useLayoutStore } from '@/store/layout.store'
+import { getDrinkService } from '~/services/drinks/getDrink.service';
+import { searchDrinksService } from '~/services/drinks/searchDrinks.service';
 
 const route = useRoute()
 const store = useLayoutStore()
@@ -18,7 +19,7 @@ const headers = [
   'Descrição',
 ]
 
-const response = await searchDrinks(
+const response = await searchDrinksService(
   `${route.params.search}`
 )
 
@@ -29,7 +30,7 @@ const drinks = computed(() => {
         id: category.id,
         content: category.name,
         callback: async (id?: string) => {
-          choosenDrink.value = (await getDrink(id ?? '')).data.value ?? undefined
+          choosenDrink.value = (await getDrinkService(id ?? '')).data.value ?? undefined
           modal.showModal()
         },
         highlightTerm: route.params.search as string,
