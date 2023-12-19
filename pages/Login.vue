@@ -44,7 +44,7 @@ const signInWithoutLogin = () => {
         <template #default>
           <BaseForm>
             <BaseInputText label="E-mail:" v-model="email" />
-            <BaseInputText label="Senha:" v-model="password" />
+            <BaseInputPassword label="Senha:" v-model="password" />
           </BaseForm>
         </template>
         <template #footer>
