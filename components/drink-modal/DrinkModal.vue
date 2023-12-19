@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useToast } from 'vue-toastification';
-import type { Drink } from '~/types/drink.types';
+import type { Drink } from '~/types/drink.type';
 
 const props = defineProps<{
   drink?: Drink;
@@ -19,7 +18,7 @@ const emits = defineEmits(['close'])
       <img :src="props.drink?.img_url" class="drink__img" :alt="props.drink?.name"/>
       <div>{{ props.drink?.description }}</div>
     </div>
-    
+
     <template #footer>
       <BaseButton @click="emits('close')" size="medium" full>Fechar</BaseButton>
     </template>

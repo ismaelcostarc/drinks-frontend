@@ -4,12 +4,13 @@ import type { TableRow } from '~/components/base/table/base-table.types';
 import { getCategory } from '~/services/categories.service';
 import { getDrink, getDrinksByCategory } from '~/services/drinks.service';
 import { deleteFavorite, getFavorites, postFavorite } from '~/services/favorites.service';
-import type { Drink } from '~/types/drink.types';
+import type { Drink } from '~/types/drink.type';
 import { useAuthStore } from '~/store/auth.store';
 
 const route = useRoute()
 const store = useLayoutStore()
 const authStore = useAuthStore()
+const modal = useModal()
 
 const choosenDrink = ref<Drink>()
 
@@ -43,7 +44,7 @@ const drinks = computed(() => {
         content: category.name,
         callback: async (id?: string) => {
           choosenDrink.value = (await getDrink(id ?? '')).data.value ?? undefined
-          showModal()
+          modal.showModal()
         }
       },
       {
@@ -74,10 +75,6 @@ const removeFavorite = async (id: string) => {
   await deleteFavorite(id)
   favorites.refresh()
 }
-
-const modalIsVisible = ref(false)
-const closeModal = () => modalIsVisible.value = false
-const showModal = () => modalIsVisible.value = true
 </script>
 
 <template>
@@ -94,7 +91,7 @@ const showModal = () => modalIsVisible.value = true
       </template>
     </BaseTable>
 
-    <DrinkModal :drink="choosenDrink" @close="closeModal" v-if="modalIsVisible" />
+    <DrinkModal :drink="choosenDrink" @close="modal.closeModal" v-if="modal.modalIsVisible.value" />
   </NuxtLayout>
 </template>
 

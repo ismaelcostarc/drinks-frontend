@@ -2,10 +2,11 @@
 import { useLayoutStore } from '@/store/layout.store'
 import type { TableRow } from '~/components/base/table/base-table.types';
 import { getDrink, searchDrinks } from '~/services/drinks.service';
-import type { Drink } from '~/types/drink.types';
+import type { Drink } from '~/types/drink.type';
 
 const route = useRoute()
 const store = useLayoutStore()
+const modal = useModal()
 
 const choosenDrink = ref<Drink>()
 
@@ -29,7 +30,7 @@ const drinks = computed(() => {
         content: category.name,
         callback: async (id?: string) => {
           choosenDrink.value = (await getDrink(id ?? '')).data.value ?? undefined
-          showModal()
+          modal.showModal()
         },
         highlightTerm: route.params.search as string,
       },
@@ -41,11 +42,6 @@ const drinks = computed(() => {
 
   return data
 })
-
-const modalIsVisible = ref(false)
-
-const closeModal = () => modalIsVisible.value = false
-const showModal = () => modalIsVisible.value = true
 </script>
 
 <template>
@@ -53,7 +49,7 @@ const showModal = () => modalIsVisible.value = true
     <template v-if="drinks.length > 0">
       <BaseTable :headers="headers" :data="drinks" />
 
-      <DrinkModal :drink="choosenDrink" @close="closeModal" v-if="modalIsVisible" />
+      <DrinkModal :drink="choosenDrink" @close="modal.closeModal" v-if="modal.modalIsVisible.value" />
     </template>
 
     <div v-else class="no-results">

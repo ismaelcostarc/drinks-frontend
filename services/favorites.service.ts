@@ -1,4 +1,4 @@
-import type { Drink } from "~/types/drink.types"
+import type { Drink } from "~/types/drink.type"
 
 export const getFavorites = () => {
   return useCustomFetch<Drink[]>(`/favorites`, { method: "GET" }, true)

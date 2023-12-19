@@ -1,5 +1,5 @@
 import { getCurrentUser } from "~/services/auth.service";
-import type { User } from "~/types/user.types";
+import type { User } from "~/types/user.type";
 
 export const useAuthStore = defineStore('useAuthStore', () => {
   const user = ref<User | null>()
