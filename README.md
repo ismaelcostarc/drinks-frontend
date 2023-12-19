@@ -35,3 +35,16 @@ Confira se o backend está rodando, se estiver, rode o servidor do frontend em `
 ```bash
 npm run dev
 ```
+
+O usuário para login é:
+
+- **E-mail**: joao@faster.com
+- **Senha**: *secret*
+
+## Testes unitários
+
+Para rodar os testes unitários rode o comando:
+
+```bash
+npm run test
+```
