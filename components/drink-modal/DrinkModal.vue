@@ -19,8 +19,8 @@ const emits = defineEmits(['close'])
       <img :src="props.drink?.img_url" class="drink__img" :alt="props.drink?.name"/>
       <div>{{ props.drink?.description }}</div>
     </div>
+    
     <template #footer>
-
       <BaseButton @click="emits('close')" size="medium" full>Fechar</BaseButton>
     </template>
   </BaseModal>
