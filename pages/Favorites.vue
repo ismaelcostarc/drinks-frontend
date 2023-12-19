@@ -15,9 +15,17 @@ layoutStore.title = 'Favoritos'
 layoutStore.backLink = '/'
 
 const headers = [
-  'Bebida',
-  'Descrição',
-  'Ação',
+  {
+    title: 'Categoria',
+    size: 20,
+  },
+  {
+    title: 'Descrição',
+  },
+  {
+    title: 'Ação',
+    size: 20,
+  },
 ]
 
 const response = await getFavoritesService()

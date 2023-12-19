@@ -8,8 +8,13 @@ layoutStore.title = 'Categorias'
 layoutStore.backLink = ''
 
 const headers = [
-  'Categoria',
-  'Descrição',
+  {
+    title: 'Categoria',
+    size: 20,
+  },
+  {
+    title: 'Descrição',
+  }
 ]
 
 const response = await getCategoriesService()

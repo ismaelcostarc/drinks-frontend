@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import type { TableRow } from './base-table.types';
+import type { TableHeader, TableRow } from './base-table.types';
 
 interface Props {
-  headers?: string[];
+  headers?: TableHeader[];
   data?: TableRow[];
 }
 
@@ -29,18 +29,18 @@ const highlightTermInWord = (content: string = '', highlightTerm: string = '') =
 <template>
   <table class="base-table">
     <tr class="base-table-header">
-      <th v-for="header in props.headers" :key="header">{{ header }}</th>
+      <th v-for="header in props.headers" :key="header.title" :style="{ width: header.size + '%' }">{{ header.title }}</th>
     </tr>
 
     <tr v-for="row in props.data" :key="'row' + row[0].id">
       <td v-for="data in row" :key="data.id">
         <NuxtLink v-if="data.link" :to="data.link" class="base-table-data--link">
-          <div v-html="highlightTermInWord(data.content, data.highlightTerm)" v-if="data.highlightTerm"/>
+          <div v-html="highlightTermInWord(data.content, data.highlightTerm)" v-if="data.highlightTerm" />
           <div v-else>{{ data.content }}</div>
         </NuxtLink>
 
         <BaseButton v-else-if="data.callback" @click="() => data.callback && data.callback(data.id)" type="link">
-          <div v-html="highlightTermInWord(data.content, data.highlightTerm)" v-if="data.highlightTerm"/>
+          <div v-html="highlightTermInWord(data.content, data.highlightTerm)" v-if="data.highlightTerm" />
           <div v-else>{{ data.content }}</div>
         </BaseButton>
 
@@ -49,7 +49,7 @@ const highlightTermInWord = (content: string = '', highlightTerm: string = '') =
         </div>
 
         <div v-else>
-          <div v-html="highlightTermInWord(data.content, data.highlightTerm)" v-if="data.highlightTerm"/>
+          <div v-html="highlightTermInWord(data.content, data.highlightTerm)" v-if="data.highlightTerm" />
           <div v-else>{{ data.content }}</div>
         </div>
       </td>

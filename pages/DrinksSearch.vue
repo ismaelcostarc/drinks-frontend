@@ -20,12 +20,20 @@ layoutStore.title = 'Resultados para: ' + route.params.search
 layoutStore.backLink = '/'
 
 const headers = [
-  'Bebida',
-  'Descrição',
+  {
+    title: 'Categoria',
+    size: 20,
+  },
+  {
+    title: 'Descrição',
+  }
 ]
 
 if (authStore.isAuthenticated) {
-  headers.push('Favorito')
+  headers.push({
+    title: 'Favorito',
+    size: 10,
+  })
 }
 
 const response = await searchDrinksService(

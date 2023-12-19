@@ -9,3 +9,8 @@ export interface TableData {
 }
 
 export type TableRow = TableData[]
+
+export interface TableHeader {
+  title: string;
+  size?: number;
+}
