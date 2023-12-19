@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-
 interface Props {
   placeholder?: string;
 }
@@ -12,7 +10,7 @@ const input = ref('')
 </script>
 
 <template>
-  <BaseForm @submit.stop="emit('search', input)">
+  <BaseForm @submit.prevent="emit('search', input)">
     <div class="base-input-search__container">
       <input type="text" class="base-input-search" :placeholder="props.placeholder" v-model="input" />
       <button class="base-input-search__button" type="submit" :disabled="!input" data-testid="search-button">
