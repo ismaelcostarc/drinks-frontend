@@ -10,14 +10,14 @@ import { addFavoriteService } from '~/services/favorites/addFavorite.service';
 import { removeFavoriteService } from '~/services/favorites/removeFavorite.service';
 
 const route = useRoute()
-const store = useLayoutStore()
 const modal = useModal()
+const layoutStore = useLayoutStore()
 const authStore = useAuthStore()
 
 const choosenDrink = ref<Drink>()
 
-store.title = 'Resultados para: ' + route.params.search
-store.backLink = '/'
+layoutStore.title = 'Resultados para: ' + route.params.search
+layoutStore.backLink = '/'
 
 const headers = [
   'Bebida',

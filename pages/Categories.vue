@@ -3,9 +3,9 @@ import type { TableRow } from '~/components/base/table/base-table.types';
 import { useLayoutStore } from '@/store/layout.store'
 import { getCategoriesService } from '~/services/categories/getCategories.service';
 
-const store = useLayoutStore()
-store.title = 'Categorias'
-store.backLink = ''
+const layoutStore = useLayoutStore()
+layoutStore.title = 'Categorias'
+layoutStore.backLink = ''
 
 const headers = [
   'Categoria',

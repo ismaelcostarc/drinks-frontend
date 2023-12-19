@@ -11,9 +11,9 @@ import { addFavoriteService } from '~/services/favorites/addFavorite.service';
 import { removeFavoriteService } from '~/services/favorites/removeFavorite.service';
 
 const route = useRoute()
-const store = useLayoutStore()
-const authStore = useAuthStore()
 const modal = useModal()
+const layoutStore = useLayoutStore()
+const authStore = useAuthStore()
 
 const choosenDrink = ref<Drink>()
 
@@ -22,12 +22,12 @@ const category = await getCategoryService(
 )
 
 watch(() => category.data.value, value => {
-  store.title = value ? value.name : 'Bebidas'
+  layoutStore.title = value ? value.name : 'Bebidas'
 }, {
   immediate: true
 })
 
-store.backLink = '/'
+layoutStore.backLink = '/'
 
 const headers = [
   'Bebida',
@@ -109,10 +109,6 @@ const removeFavorite = async (id: string) => {
 </template>
 
 <style>
-.text {
-  color: var(--color-primary);
-}
-
 .favorite-button__container {
   display: flex;
   align-items: center;

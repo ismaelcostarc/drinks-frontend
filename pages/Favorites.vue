@@ -6,13 +6,13 @@ import { getDrinkService } from '~/services/drinks/getDrink.service';
 import { getFavoritesService } from '~/services/favorites/getFavorites.service';
 import { removeFavoriteService } from '~/services/favorites/removeFavorite.service';
 
-const store = useLayoutStore()
 const modal = useModal()
+const layoutStore = useLayoutStore()
 
 const choosenDrink = ref<Drink>()
 
-store.title = 'Favoritos'
-store.backLink = '/'
+layoutStore.title = 'Favoritos'
+layoutStore.backLink = '/'
 
 const headers = [
   'Bebida',
