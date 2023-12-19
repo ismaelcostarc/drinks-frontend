@@ -18,7 +18,7 @@ const highlightTermInWord = (content: string = '', highlightTerm: string = '') =
     const highlighted = content.substring(index, index + highlightTerm.length);
     const end = content.substring(index + highlightTerm.length);
 
-    return `${start}<span style="font-weight: bolder;">${highlighted}</span>${end}`;
+    return `<span data-testid="${highlightTerm}">${start}<span style="font-weight: bolder;">${highlighted}</span>${end}</span>`;
   }
 
   // Se o termo não for encontrado na palavra, retornar a palavra original
@@ -35,11 +35,13 @@ const highlightTermInWord = (content: string = '', highlightTerm: string = '') =
     <tr v-for="row in props.data" :key="'row' + row[0].id">
       <td v-for="data in row" :key="data.id">
         <NuxtLink v-if="data.link" :to="data.link" class="base-table-data--link">
-          {{ data.content }}
+          <div v-html="highlightTermInWord(data.content, data.highlightTerm)" v-if="data.highlightTerm"/>
+          <div v-else>{{ data.content }}</div>
         </NuxtLink>
 
         <BaseButton v-else-if="data.callback" @click="() => data.callback && data.callback(data.id)" type="link">
-          <div v-html="highlightTermInWord(data.content, data.highlightTerm)"></div>
+          <div v-html="highlightTermInWord(data.content, data.highlightTerm)" v-if="data.highlightTerm"/>
+          <div v-else>{{ data.content }}</div>
         </BaseButton>
 
         <div v-else-if="data.isAction">
@@ -47,7 +49,8 @@ const highlightTermInWord = (content: string = '', highlightTerm: string = '') =
         </div>
 
         <div v-else>
-          {{ data.content }}
+          <div v-html="highlightTermInWord(data.content, data.highlightTerm)" v-if="data.highlightTerm"/>
+          <div v-else>{{ data.content }}</div>
         </div>
       </td>
     </tr>

@@ -27,15 +27,15 @@ const showPassword = ref(false)
 <template>
   <div class="base-input-password__container">
     <div class="base-input-password__label">
-      <label :for="props.label">{{ props.label }}</label>
-      <div class="base-input-password__required" v-if="props.required">*</div>
+      <label :for="props?.label">{{ props?.label }}</label>
+      <div class="base-input-password__required" v-if="props?.required">*</div>
     </div>
-    <input :type="showPassword ? 'text' : 'password'" class="base-input-password" :id="props.label"
-      :placeholder="props.placeholder" v-model="value" />
+    <input :type="showPassword ? 'text' : 'password'" class="base-input-password" :id="props?.label"
+      :placeholder="props?.placeholder" v-model="value" />
 
     <div class="base-input-password__show-password">
-      <input type="checkbox" :id="props.label + 'checkbox'" v-model="showPassword" />
-      <label :for="props.label + 'checkbox'">Mostrar senha</label>
+      <input type="checkbox" :id="props?.label + 'checkbox'" v-model="showPassword" />
+      <label :for="props?.label + 'checkbox'">Mostrar senha</label>
     </div>
   </div>
 </template>

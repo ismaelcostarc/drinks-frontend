@@ -12,10 +12,10 @@ const input = ref('')
 </script>
 
 <template>
-  <BaseForm @submit.prevent="emit('search', input)">
+  <BaseForm @submit.stop="emit('search', input)">
     <div class="base-input-search__container">
       <input type="text" class="base-input-search" :placeholder="props.placeholder" v-model="input" />
-      <button class="base-input-search__button" type="submit" :disabled="!input">
+      <button class="base-input-search__button" type="submit" :disabled="!input" data-testid="search-button">
         <font-awesome-icon :icon="['fas', 'magnifying-glass']" />
       </button>
     </div>
