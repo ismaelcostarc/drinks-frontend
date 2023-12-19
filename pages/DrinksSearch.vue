@@ -4,10 +4,12 @@ import type { TableRow } from '~/components/base/table/base-table.types';
 import { useLayoutStore } from '@/store/layout.store'
 import { getDrinkService } from '~/services/drinks/getDrink.service';
 import { searchDrinksService } from '~/services/drinks/searchDrinks.service';
+import { useAuthStore } from '~/store/auth.store';
 
 const route = useRoute()
 const store = useLayoutStore()
 const modal = useModal()
+const authStore = useAuthStore()
 
 const choosenDrink = ref<Drink>()
 
@@ -19,13 +21,17 @@ const headers = [
   'Descrição',
 ]
 
+if(authStore.isAuthenticated) {
+  headers.push('Favorito')
+}
+
 const response = await searchDrinksService(
   `${route.params.search}`
 )
 
 const drinks = computed(() => {
   const data: TableRow[] = response.data.value?.map(category => {
-    return [
+    const row: TableRow = [
       {
         id: category.id,
         content: category.name,
@@ -39,6 +45,17 @@ const drinks = computed(() => {
         content: category.description
       }
     ]
+
+    if (authStore.isAuthenticated) {
+      row.push(
+        {
+          payload: category.id,
+          isAction: authStore.isAuthenticated,
+        },
+      )
+    }
+
+    return row
   }) ?? []
 
   return data
