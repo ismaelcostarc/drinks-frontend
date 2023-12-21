@@ -1,0 +1,15 @@
+:root {
+  /* Tamanhos de texto em rem */
+  --font-size-sm: 0.75rem; /* 12px */
+  --font-size-md: 1rem; /* 16px */
+  --font-size-lg: 1.25rem; /* 20px */
+  --font-size-xl: 1.5rem; /* 24px */
+  --font-size-xxl: 2rem; /* 32px */
+
+  /* Alturas de linha */
+  --line-height-sm: 1.2;
+  --line-height-md: 1.4;
+  --line-height-lg: 1.6;
+  --line-height-xl: 1.8;
+  --line-height-xxl: 2.0;
+}
