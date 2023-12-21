@@ -18,7 +18,7 @@ const signIn = async () => {
   })
 
   if (response.error.value) {
-    if (response.error.value.statusCode === 400) {
+    if (response.error.value.statusCode === 400 || response.error.value.statusCode === 422) {
       toast.error("As credenciais estão incorretas.")
     }
   } else {

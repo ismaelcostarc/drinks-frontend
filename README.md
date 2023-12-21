@@ -38,7 +38,7 @@ npm run dev
 
 O usuário para login é:
 
-- **E-mail**: joao@faster.com
+- **E-mail**: ismael@faster.com
 - **Senha**: *secret*
 
 ## Testes unitários
