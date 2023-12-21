@@ -31,13 +31,13 @@ const headers = [
 const response = await getFavoritesService()
 
 const favorites = computed(() => {
-  const data: TableRow[] = response.data.value?.map(category => {
+  const data: TableRow[] = response.data.value?.data.map(category => {
     return [
       {
         id: category.id,
         content: category.name,
         callback: async (id?: string) => {
-          choosenDrink.value = (await getDrinkService(id ?? '')).data.value ?? undefined
+          choosenDrink.value = (await getDrinkService(id ?? '')).data.value?.data ?? undefined
           modal.showModal()
         }
       },

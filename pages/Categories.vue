@@ -20,7 +20,7 @@ const headers = [
 const response = await getCategoriesService()
 
 const categories = computed(() => {
-  const data: TableRow[] = response.data.value?.map(category => {
+  const data: TableRow[] = response.data.value?.data.map(category => {
     return [
       {
         content: category.name,

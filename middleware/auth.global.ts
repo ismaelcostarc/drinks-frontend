@@ -18,7 +18,8 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
     if (hasToken) {
       // Página pública com usuário logado
       const { data } = await authStore.fetchUser()
-      authStore.setUser(data.value)
+      console.log(data.value)
+      authStore.setUser(data.value?.data!)
     }
 
     // Página pública com usuário deslogado
@@ -29,7 +30,7 @@ export default defineNuxtRouteMiddleware(async (to, from) => {
   // Página privada com usuário logado
   if (hasToken) {
     const { data } = await authStore.fetchUser()
-    authStore.setUser(data.value)
+    authStore.setUser(data.value?.data!)
 
     if (authStore.isAuthenticated) return true
   }

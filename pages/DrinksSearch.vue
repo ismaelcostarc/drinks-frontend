@@ -41,13 +41,13 @@ const response = await searchDrinksService(
 )
 
 const drinks = computed(() => {
-  const data: TableRow[] = response.data.value?.map(category => {
+  const data: TableRow[] = response.data.value?.data.map(category => {
     const row: TableRow = [
       {
         id: category.id,
         content: category.name,
         callback: async (id?: string) => {
-          choosenDrink.value = (await getDrinkService(id ?? '')).data.value ?? undefined
+          choosenDrink.value = (await getDrinkService(id ?? '')).data.value?.data ?? undefined
           modal.showModal()
         },
         highlightTerm: route.params.search as string,
@@ -75,7 +75,7 @@ const drinks = computed(() => {
 const favorites = await getFavoritesService()
 
 const isFavorite = (id: string) => {
-  return !!favorites.data.value?.find(favorite => favorite.id === id)
+  return !!favorites.data.value?.data.find(favorite => favorite.id === id)
 }
 
 const favoriteDrink = async (id: string) => {

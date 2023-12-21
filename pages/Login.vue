@@ -22,7 +22,7 @@ const signIn = async () => {
       toast.error("As credenciais estão incorretas.")
     }
   } else {
-    useAuthStore().login(response?.data.value?.token ?? '')
+    useAuthStore().login(response?.data.value?.data.token ?? '')
     router.push({ name: 'Categories' })
   }
 }
