@@ -88,3 +88,5 @@ Além dos diretórios e arquivos padrões do Nuxt, foram criados alguns adiciona
 - A API já possui paginação e ordenação, então o componente de Table pode ser modificado para apresentar páginas e ordenação.
 
 - Os componentes podem apresentar mais variáveis de cores, tamanhos e tipos dos componentes.
+
+- Pode ser utilizado um pacote de loading ou skeleton para tornar os carregamentos mais suaves.
