@@ -65,7 +65,7 @@ Além dos diretórios e arquivos padrões do Nuxt, foram criados alguns adiciona
 
 - **/services**: arquivos que realizam as requisições para a API. Separei em arquivos separados, para evitar detalhes de requisições HTTP dentro das páginas. Se o projeto escalasse, também ajudaria a organizar tipos de corpos de requisições e respostas mais complexos.
 
-- **/store**: as stores controlam apenas o estado o usuário autenticado e do layout. A maior parte do estado e da lógica está nos próprios componentes. Por ser um projeto simples, não há necessidade de mover toda a lógica das páginas para stores.
+- **/store**: as stores controlam apenas o estado do usuário autenticado e do layout. A maior parte do estado e da lógica está nos próprios componentes. Por ser um projeto simples, não há necessidade de mover toda a lógica das páginas para stores.
 
 - **/types**: tipos que são utilizados em vários lugares do projeto
 
